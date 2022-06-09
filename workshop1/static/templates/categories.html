@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block titleTag %}
+หมวดหมู่
+{% endblock titleTag %}
+
+
+{% block breadcrumbs %}
+<li><a href="{% url 'products' %}">หน้าแรก</a></li>
+<li><a>จัดการหมวดหมู่</a></li>
+
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'categorys.css' %}">
+
+
+<div class="container-md">
+
+  <table class="table table-striped table-light text-center table-hover"
+    id="myTable">
+    <thead>
+      <tr>
+        <th scope="col">ชื่อ</th>
+        <th scope="col">รูปภาพ</th>
+        <th scope="col">รายละเอียด</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% if categories %}
+
+      {% for cat in categories %}
+
+      <tr class="tr_category"id="cat-row" onclick="elClick(this)"
+        data-path="{% url 'productspk' cat.id %}">
+        <input type="hidden" id="name" value="{{cat.cat_name}}">
+        <td class="td_name">{{cat.cat_name}}</td>
+        <td><img src="{% static cat.cat_image %}" alt=""></td>
+        <td>{{cat.cat_detail}}</td>
+      </tr>
+      {% endfor %}
+      {% else %}
+      <tr>
+        <td colspan="3" class="text-black-50 text-center"><a>ไม่พบข้อมูล</a></td>
+      </tr>
+
+      {% endif %}
+
+
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+<script>
+function elClick(el){
+    window.location.assign(el.getAttribute('data-path'));
+  }
+
+$(document).ready(function () {
+
+  const tr = $("#myTable tr#cat-row")
+  const name = $("#myTable input#name")
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+
+    tr.filter(function(i) {
+      $(this).toggle(name[i].value.toLowerCase().indexOf(value) > -1)
+      //$(this).text().toLowerCase().indexOf(value) > -1
+      // console.log();
+    });
+  });
+});
+</script>
+{% endblock content %}

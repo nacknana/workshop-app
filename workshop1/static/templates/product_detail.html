@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load my_tag %}
+
+{% block titleTag %}
+รายละเอียด
+{% endblock titleTag %}
+
+{% block breadcrumbs %}
+{% if showBread %}
+<li><a href="{% url 'products' %}">หน้าแรก</a></li>
+<li><a href="{% url 'productspk' product.prod_category|getIdFromNameCat %}">{{product.prod_category}}</a></li>
+<li><a>{{product.prod_name}}</a></li>
+{% endif %}
+{% endblock breadcrumbs %}
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'product_detail.css' %}">
+<div class="container">
+  <div class="name text-black-50">{{product.prod_name}}</div>
+  {% for prod in product.id|getHtmlSliderImgs %}
+  <div class="mySlides">
+    <div class="numbertext">{{prod.index}} / {{prod.length}}</div>
+    <img src="{% static prod.value.images %}" style="width:100%">
+  </div>
+
+  {% endfor %}
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  <div class="caption-container">
+    <p id="caption"></p>
+  </div>
+
+  <div class="row">
+    {% for prod in product.id|getHtmlSliderImgs %}
+    <div class="column">
+      <img class="demo cursor" src="{% static prod.value.images %}"
+        style="width:100%;height: 80px;"
+        onclick='currentSlide(" {{prod.index}}" )'>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<br><hr>
+
+<div class="container">
+  <div class="price"><h1>ราคา : <b>{{product.prod_price|floatformat:'g'}}</b>
+      บาท</h1></div>
+  <div class="detail"><h3>รายละเอียด : {{product.prod_detail}}</h3></div>
+
+  {% if product.prod_recommend %}
+  <div class="recommend">เป็นสินค้าแนะนำ</div>
+  {% endif %}
+</div>
+
+
+
+<script>
+let slideIndex = 0;
+showSlides(slideIndex);
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+    const x = parseInt(n)
+  showSlides(slideIndex = x);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("demo");
+  let captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+
+    
+</script>
+{% endblock content %}

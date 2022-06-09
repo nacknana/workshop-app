@@ -1,0 +1,36 @@
+{% load static %}
+
+
+
+<header>
+
+  <div class="mynav">
+    <ul>
+      <li class="home"><a class="active" href="{% url 'products' %}">MyShop</a></li>
+      <li class="cate"><a>categories</a>
+        <ul>
+          <li>
+            {% if categories %}
+            {% for cat in categories %}
+            <a href="{% url 'productspk' cat.id %}">{{cat.cat_name}}</a>
+            {% endfor %}
+            {% else %}
+            <a>ไม่พบข้อมูล</a>
+            {% endif %}
+            <a href="{% url 'categories' %}">จัดการหมวดหมู่</a>
+          </li>
+        </ul>
+      </li>
+
+
+    </ul>
+    <ul class="search">
+      <li>
+        <input type="search" id="search" placeholder="ค้นหา">
+      </li>
+    </ul>
+  </div>
+
+
+
+</header>

@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %} {% load static %} {% block titleTag %} ติดต่อ {%
+endblock titleTag %} {% block breadcrumbs %} {% if showBread %}
+<li><a href="{% url 'products' %}">หน้าแรก</a></li>
+<li><a>ติดต่อสอบถาม</a></li>
+{% endif %} {% endblock breadcrumbs %} {% block content %}
+
+<div class="container">
+  {% if sta %} ส่งข้อความสำเร็จ {% endif %}
+
+  <form
+    action="{% url 'contact' %}"
+    method="post"
+    class="needs-validation"
+    novalidate>
+    {% csrf_token %}
+    <div class="row mb-3">
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">ชื่อ</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="ชื่อ"
+          aria-label="First name"
+          name="fname"
+          required
+          />
+        <div class="invalid-feedback">ต้องใส่ชื่อ</div>
+      </div>
+      <div class="col">
+        <label for="exampleFormControlInput1" class="form-label">นามสกุล</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="นามสกุล"
+          aria-label="Last name"
+          name="lname"
+          required
+          />
+        <div class="invalid-feedback">ต้องใส่นามสกุล</div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">อีเมล</label>
+      <input
+        type="email"
+        class="form-control"
+        required
+        id="exampleFormControlInput1"
+        name="email"
+        placeholder="อีเมล"
+        />
+      <div class="invalid-feedback">ต้องใส่อีเมล</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        required
+        name="text"></textarea>
+      <div class="invalid-feedback">ระบุข้อความที่ต้องการติดต่อ</div>
+    </div>
+    <div class="flex text-start">
+      <button type="submit" id="submit" class="btn btn-outline-info">
+        ส่งข้อความ
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

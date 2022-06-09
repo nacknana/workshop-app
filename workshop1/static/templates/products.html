@@ -1,0 +1,137 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load my_tag %}
+
+{% block titleTag %}
+รายการสินค้า
+{% endblock titleTag %}
+
+{% block breadcrumbs %}
+{% if showBread %}
+<li><a href="{% url 'products' %}">หน้าแรก</a></li>
+<li><a>{{products|getCatFromProducts}}</a></li>
+{% endif %}
+{% endblock breadcrumbs %}
+
+
+
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'products.css' %}">
+
+<div class="container-fluid">
+  <div class="dropdown sort">
+    <button class="btn btn-secondary dropdown-toggle" type="button"
+      id="sort" data-bs-toggle="dropdown"
+      aria-expanded="false">
+      ราคาน้อยไปมาก
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" id="LowToHeigh">ราคาน้อยไปมาก</a></li>
+      <li><a class="dropdown-item" id="HeighToLow">ราคามากไปน้อย</a></li>
+    </ul>
+  </div>
+  <div class="row row-cols-auto justify-content-center" id="mylist">
+
+
+    {% if products %}
+
+
+    {% for prod in products %}
+
+    <div class="col align-content-center cardProd"
+      data-sort="{{prod.prod_price}}" onclick="elClick(this)"
+      data-path="{% url 'productdetail' prod.id %}">
+
+
+
+      <!-- <a>{{prod.id|getOneImgProdID}}</a> -->
+      <div class="card" style="width: 18rem;">
+        {% if prod.prod_recommend %}
+        <div class="star">
+          <img src="/host/image/star.png">
+        </div>
+        {% endif %}
+        <img src="{{prod.id|getOneImgProdID}}" class="card-img-top p-3">
+        <div class="card-body">
+          <p class="card-text">
+            <h1 class="text-center"><b><p class="name"
+                  data-prodName="{{prod.prod_name}}">{{prod.prod_name}}</p></b></h1>
+            <h4><p id="price">{{prod.prod_price|floatformat:'g'}}<span>
+                  บาท</span></p></h4>
+            <input type="hidden" id="name"
+              value="{{prod.prod_name}}">
+
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+    {% else %}
+    <a class="text-black-50 text-lg-center">ไม่พบสินค้า</a>
+    {% endif %}
+
+
+
+  </div>
+</div>
+
+<script>
+  // $(function(){
+  //   $("#search").change(console.log($("#search").val))
+    
+    
+  // })
+  // ;
+
+  function elClick(el){
+    window.location.assign(el.getAttribute('data-path'));
+  }
+  
+  $(document).ready(function () {
+
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("div.cardProd").filter(function(i) {
+          $(this).toggle($("div.cardProd #name")[i].value.toLowerCase().indexOf(value)>-1);
+          // console.log();
+        });
+      });
+
+     
+      
+      $("#LowToHeigh").click(function(){
+        var result = $('div.cardProd').sort(function (a, b) {
+        var contentA =parseInt( $(a).data('sort'));
+        var contentB =parseInt( $(b).data('sort')); //.html('ราคามากไปน้อย')
+        $('#sort').text('ราคาน้อยไปมาก')
+        return (contentA < contentB) ? -1 : (contentA > contentB) ? 1 : 0;
+        });
+        $('#mylist').html(result);
+
+      })
+
+      $("#HeighToLow").click(function(){
+        var result = $('div.cardProd').sort(function (a, b) {
+        var contentA =parseInt( $(a).data('sort'));
+        var contentB =parseInt( $(b).data('sort'));
+        $('#sort').text('ราคามากไปน้อย')
+        return (contentA > contentB) ? -1 : (contentA < contentB) ? 1 : 0;
+        });
+        console.log(result);
+        $('#mylist').html(result);
+      })
+
+      // $('div.cardProd').click(function(){
+      //   console.log($(this).attr('data-idProd'));
+      // })
+      
+    });
+
+
+    
+
+</script>
+{% endblock content %}

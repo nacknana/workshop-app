@@ -1,0 +1,47 @@
+.cardProd:hover .card{
+    background: #dbdbdb;
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    
+}
+
+.card{
+    border-radius: 20px;
+}
+/* #mylist{
+    margin: 0;
+    padding: 0;
+} */
+
+.sort{
+    margin: 5px 15px;
+    position: absolute;
+    right: 0;
+    background: #dbdbdb;
+}
+.cardProd{
+    /* background-color: aqua; */
+    margin: 10px 5px;
+    padding: 0;
+}
+
+.star {
+    /* background-color: black; */
+   padding: 0;
+   margin: 0;
+   width: 100%;
+   /* position: absolute; */
+   /* width: 50px;
+   height: 50px; */
+
+}
+
+.star img{
+    /* background: red; */
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: 20;
+    right: -40px;
+    top: -40px;
+}

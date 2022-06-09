@@ -1,0 +1,178 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous">
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+      shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block titleTag %}
+      {% endblock titleTag %}
+    </title>
+  </head>
+  <body>
+
+    {% include 'navbar.html' %}
+    <link rel="stylesheet" href="{% static 'breadcrumbs.css' %}" />
+    <div class="">
+      <div class="cont_breadcrumbs_1">
+        <ul>
+          {% block breadcrumbs %}
+          {% endblock breadcrumbs %}
+        </ul>
+      </div>
+    </div>
+
+    {% block content %}{% endblock content %}
+
+    <!-- <div class="text-center p-4 iBannerFix">
+      <p>Copyright © 2021 Intelligent Bytes Co., Ltd. All Rights Reserved.</p>
+    </div> -->
+    <footer class="footer py-3 ft-edit sticky-bottom fibt">
+      <div class="container text-center">
+        <span class="text-muted">Copyright © 2021 Intelligent Bytes Co., Ltd.
+          All Rights Reserved.</span>
+      </div>
+    </footer>
+  </body>
+  <script>
+
+        //validate func
+        (function () {
+      'use strict'
+    
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+    
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+
+    
+
+    function toggle_by_class(val) {
+      let lst = document.getElementsByClassName('tr_category');
+      // console.log( 'val   ===>> ',val);
+      // let sta = val == 'show' ? 'display' : 'none'
+      // let ls = $(`tr.tr_sta`);
+      for (let i = 0; i < lst.length; i++) {
+        const el = lst[i].getElementsByClassName('td_sta')
+
+        const sta = el[0].getElementsByTagName('p')[0].className
+        // const sta = el[0].innerText == 'ซ่อน' ? 'hide' : 'show'
+
+        // console.log(" ==> ", sta);
+
+        if (val == 'show') {
+          sta == 'show' ? 
+            lst[i].style.display = '':
+            lst[i].style.display = 'none'
+        } else if (val == 'hide') {
+          sta == 'hide' ? 
+            lst[i].style.display = '':
+            lst[i].style.display = 'none'
+        }else{
+          lst[i].style.display = ''
+        }
+          
+      
+      }
+    }
+
+    
+    function searchCate(e) {
+      // console.log(e.target.value);
+      let txt = e.target.value;
+      let lst = document.getElementsByClassName('tr_category');
+      if (lst.length > 0) {
+        for (let i = 0; i < lst.length; i++) {
+        const catName = lst[i].getElementsByClassName('td_name')[0].innerText
+        
+        if (catName.search(txt) >=0) {
+          lst[i].style.display = ''
+        }
+        else {
+          lst[i].style.display = 'none'
+        }
+      }
+      }
+      
+    }
+
+    // function searchProd(e) {
+    //   // console.log(e.target.value);
+    //   let txt = e.target.value;
+    //   let lst = document.getElementsByClassName('cardProd');
+    //   for (let i = 0; i < lst.length; i++) {
+    //     console.log(lst[i].getElementById('price'));
+
+        
+    //   }
+    // }
+
+    $(document).ready(function () {
+      // let lsn = $("div.cardProd")
+      // lsn.each(function (i) {
+      //   let el = lsn.find("#hide")[i]
+      //   if (el.value == 'True') {
+      //     lsn.eq(i).addClass('item-hide')
+      //   }else{
+      //     lsn.eq(i).removeClass('item-hide')
+      //   }
+        
+      // });
+
+
+      $('#cat_submit').click(function(){
+        $('#form_select_cat').submit()
+      })
+      
+    });
+
+    (function () {
+      'use strict'
+    
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+    
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+    </script>
+</html>

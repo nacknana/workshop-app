@@ -1,0 +1,34 @@
+img{
+    width: 150px;
+    height: 150px;
+}
+
+table > thead{
+    text-align: center;
+}
+
+table > tbody > tr {
+    vertical-align: middle;
+    /* display: table-cell; */
+  }
+
+
+
+.flex-box{
+    display: flex;
+  /* justify-content: flex-end; */
+  /* background: #37bc9b; */
+}
+
+
+
+
+.flex-item{
+    display: block;
+    box-sizing: border-box;
+    /* align-self: flex-end; */
+}
+
+tr{
+  cursor: pointer;
+}

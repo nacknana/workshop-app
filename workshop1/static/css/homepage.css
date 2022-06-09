@@ -1,0 +1,68 @@
+div.iBannerFix{
+  height:50px;
+  line-height: 50px;
+  /* position:fixed; */
+  /* left:0px;
+  bottom:0px; */
+  width:100%;
+  z-index: 99;
+  text-align: center;
+  background-color: rgba(0,0, 0,0.1);
+}
+
+
+
+
+/* Style the list */
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: #eee;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+.mynav-box{
+  background-color: black;
+  display: flex;
+}
+
+
+.item-hide{
+display: none;
+}
+
+.item-show{
+display: '';
+}
+
+
+
+div.nav-container {
+background: #000;
+width: 100%;
+font-size: 50px;
+}

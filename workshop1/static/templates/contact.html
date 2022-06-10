@@ -1,8 +1,18 @@
-{% extends 'base/base.html' %} {% load static %} {% block titleTag %} ติดต่อ {%
-endblock titleTag %} {% block breadcrumbs %} {% if showBread %}
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block titleTag %}
+ติดต่อ
+{% endblock titleTag %}
+
+{% block breadcrumbs %}
+{% if showBread %}
 <li><a href="{% url 'products' %}">หน้าแรก</a></li>
 <li><a>ติดต่อสอบถาม</a></li>
-{% endif %} {% endblock breadcrumbs %} {% block content %}
+{% endif %}
+{% endblock breadcrumbs %}
+
+{% block content %}
 
 <div class="container">
   {% if sta %} ส่งข้อความสำเร็จ {% endif %}

@@ -31,7 +31,7 @@ class ProductAdmin(admin.ModelAdmin):
         print(imgs)
         div = '<div>'
         for img in imgs:
-            div += '<img src="%s" style="border:2px solid black;border-radius:50px" height="100px"> <br/>' % img.images.url
+            div += '<img src="%s" style="border:1px solid black;border-radius:20px;height:100px;width:100px;" > <br/>' % img.images.url
         div += '<div>'
         return format_html(div)
 
@@ -39,6 +39,10 @@ class ProductAdmin(admin.ModelAdmin):
         model = Product
 
 
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['firstname', 'message']
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Contact)
+admin.site.register(Contact, ContactAdmin)

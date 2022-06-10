@@ -24,9 +24,29 @@
 
 
     </ul>
-    <ul class="search">
+    <ul class="d-flex">
       <li>
-        <input type="search" id="search" placeholder="ค้นหา">
+        <input type="search" id="search" class="form-control w-100 mt-2"
+          placeholder="ค้นหา">
+      </li>
+      <li>
+        {% if user.is_authenticated %}
+        <a>{{user.username}}</a>
+        <ul>
+          <li>
+            <a style="color: red !important;" href="{% url 'logout' %}"
+              class="menu">ลงชื่อออก</a>
+          </li>
+        </ul>
+        {% else %}
+        <a href="{% url 'signinup' %}">ลงชื่อเข้าใช้</a>
+        <ul>
+          <li>
+            <a href="{% url 'contact' %}">ติดต่อ</a>
+          </li>
+        </ul>
+        {% endif %}
+
       </li>
     </ul>
   </div>

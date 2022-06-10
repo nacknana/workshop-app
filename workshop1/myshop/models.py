@@ -68,6 +68,10 @@ class Contact(models.Model):
     e_mail = models.EmailField(max_length=70)
     message = models.TextField(max_length=255, null=True, blank=True)
 
+    class Meta:
+        def __str__(self):
+            return self.firstname
+
 
 class Comment(models.Model):
     product_comment = models.ForeignKey(

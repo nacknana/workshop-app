@@ -1,9 +1,11 @@
 
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import Category, Contact, ImagesProduct, Product
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+from django.contrib.auth import login, logout
 # Create your views here.
 
 
@@ -43,9 +45,10 @@ def categories(request):
 def product_detail(request, pk):
     # print(pk)
     prod = Product.objects.filter(id=pk).first()
+    prod_rec = Product.objects.filter(prod_recommend=True)
 
     cate = Category.objects.filter(cat_status=True)
-    return render(request, 'product_detail.html', {'categories': cate, 'product': prod, 'showBread': True})
+    return render(request, 'product_detail.html', {'categories': cate, 'product': prod, 'prods_rec': prod_rec, 'showBread': True})
 
 
 def contact(request):
@@ -63,3 +66,30 @@ def contact(request):
 
     # print(get_recaptcha)
     return render(request, 'contact.html', {'showBread': True, 'sta': sta})
+
+
+def login_or_regis_view(req):
+    formRegis = UserCreationForm()
+    formLogin = AuthenticationForm()
+
+    if req.POST:
+        if req.POST['form'] == 'regis':
+            formRegis = UserCreationForm(req.POST)
+            if formRegis.is_valid:
+                user = formRegis.save()
+                login(req, user)
+                return redirect('products')
+        if req.POST['form'] == 'login':
+            formLogin = AuthenticationForm(data=req.POST)
+            if formLogin.is_valid():
+                user = formLogin.get_user()
+                login(req, user)
+                return redirect('products')
+
+    return render(req, 'signinup.html', {'regis': formRegis, 'login': formLogin, 'categories': Category.objects.all()})
+
+
+def logout_view(req):
+    # if req.method == 'POST':
+    logout(req)
+    return redirect('products')

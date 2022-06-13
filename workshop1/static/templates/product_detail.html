@@ -18,84 +18,84 @@
 
 {% block content %}
 <div class="container d-flex justify-content-between">
-  <link rel="stylesheet" href="{% static 'product_detail.css' %}">
-  <div class="container">
+    <link rel="stylesheet" href="{% static 'product_detail.css' %}">
+    <div class="container">
 
-    {% for prod in product.id|getHtmlSliderImgs %}
-    <div class="mySlides">
-      <div class="numbertext">{{prod.index}} / {{prod.length}}</div>
-      <img src="{% static prod.value.images %}" style="width:100%">
+        {% for prod in product.id|getHtmlSliderImgs %}
+        <div class="mySlides">
+            <div class="numbertext">{{prod.index}} / {{prod.length}}</div>
+            <img src="{% static prod.value.images %}" style="width:100%">
+        </div>
+
+        {% endfor %}
+        <a class="prev" onclick="plusSlides(-1)">&lt;</a>
+        <a class="next" onclick="plusSlides(1)">&gt;</a>
+
+
+        <div class="row">
+            {% for prod in product.id|getHtmlSliderImgs %}
+            <div class="column">
+                <img class="demo cursor" src="{% static prod.value.images %}"
+                    style="width:100%;height: 80px;"
+                    onclick='currentSlide(" {{prod.index}}" )'>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-
-    {% endfor %}
-    <a class="prev" onclick="plusSlides(-1)">&lt;</a>
-    <a class="next" onclick="plusSlides(1)">&gt;</a>
+    <br>
 
 
-    <div class="row">
-      {% for prod in product.id|getHtmlSliderImgs %}
-      <div class="column">
-        <img class="demo cursor" src="{% static prod.value.images %}"
-          style="width:100%;height: 80px;"
-          onclick='currentSlide(" {{prod.index}}" )'>
-      </div>
-      {% endfor %}
+
+    <div class="container m-3">
+        <div class="name text-black-50">{{product.prod_name}}</div>
+        <div class="price">
+            <h1>ราคา : <b>{{product.prod_price|floatformat:'g'}}</b> บาท</h1>
+        </div>
+        <div class="detail">
+            <h3>รายละเอียด : {{product.prod_detail}}</h3>
+        </div>
+
+        {% if product.prod_recommend %}
+        <div class="recommend">เป็นสินค้าแนะนำ</div>
+        {% endif %}
     </div>
-  </div>
-  <br>
-
-
-
-  <div class="container m-3">
-    <div class="name text-black-50">{{product.prod_name}}</div>
-    <div class="price">
-      <h1>ราคา : <b>{{product.prod_price|floatformat:'g'}}</b> บาท</h1>
-    </div>
-    <div class="detail">
-      <h3>รายละเอียด : {{product.prod_detail}}</h3>
-    </div>
-
-    {% if product.prod_recommend %}
-    <div class="recommend">เป็นสินค้าแนะนำ</div>
-    {% endif %}
-  </div>
 </div>
 <br><br>
 <hr>
 <br><br>
 <div class="container">
-  <h3>สินค้าแนะนำ</h3>
-  <div class="row row-cols-auto justify-content-center">
-    {% for prod in prods_rec %}
+    <h3>สินค้าแนะนำ</h3>
+    <div class="row row-cols-auto justify-content-center">
+        {% for prod in prods_rec %}
 
-    <div class="col align-content-center cardProd"
-      data-sort="{{prod.prod_price}}"
-      onclick="elClick(this)"
-      data-path="{% url 'productdetail' prod.id %}">
+        <div class="col align-content-center cardProd"
+            data-sort="{{prod.prod_price}}"
+            onclick="elClick(this)"
+            data-path="{% url 'productdetail' prod.id %}">
 
 
 
-      <!-- <a>{{prod.id|getOneImgProdID}}</a> -->
-      <div class="card" style="width: 18rem;">
+            <!-- <a>{{prod.id|getOneImgProdID}}</a> -->
+            <div class="card" style="width: 18rem;">
 
-        <img src="{{prod.id|getOneImgProdID}}" class="card-img-top p-3"
-          style="height:15em">
-        <div class="card-body">
-          <p class="card-text">
-            <h1 class="text-center"><b><p class="name"
-                  data-prodName="{{prod.prod_name}}">{{prod.prod_name}}</p></b></h1>
-            <h4><p id="price">{{prod.prod_price|floatformat:'g'}}<span>
-                  บาท</span></p></h4>
-            <input type="hidden" id="name"
-              value="{{prod.prod_name}}">
+                <img src="{{prod.id|getOneImgProdID}}" class="card-img-top p-3"
+                    style="height:15em">
+                <div class="card-body">
+                    <p class="card-text">
+                        <h1 class="text-center"><b><p class="name"
+                                    data-prodName="{{prod.prod_name}}">{{prod.prod_name}}</p></b></h1>
+                        <h4><p id="price">{{prod.prod_price|floatformat:'g'}}<span>
+                                    บาท</span></p></h4>
+                        <input type="hidden" id="name"
+                            value="{{prod.prod_name}}">
 
-          </p>
+                    </p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    {% endfor %}
-  </div>
+        {% endfor %}
+    </div>
 
 </div>
 

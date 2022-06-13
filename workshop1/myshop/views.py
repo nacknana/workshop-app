@@ -12,7 +12,6 @@ from django.contrib.auth import login, logout
 def index(request):
     cat = Category.objects.all()
     prod = Product.objects.all()
-    img = ImagesProduct.objects.all()
     # print(cat)
     # for i in cat:
     #     print('cat ====>>', i.cat_image)
@@ -29,6 +28,7 @@ def productspk(request, pk):
 
 
 def products(request):
+
     cate = Category.objects.all()
     prods = Product.objects.filter(
         prod_recommend=True, prod_status=True).order_by('prod_price')

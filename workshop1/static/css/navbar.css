@@ -27,7 +27,8 @@ body {
 
 
 
-.mynav a {
+.mynav a,
+.mynav input {
   text-decoration: none;
   color: #fff !important;
   display: block;

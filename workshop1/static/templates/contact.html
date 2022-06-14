@@ -20,8 +20,7 @@
   <form
     action="{% url 'contact' %}"
     method="post"
-    class="needs-validation"
-    novalidate>
+    class="needs-validation" novalidate>
     {% csrf_token %}
     <div class="row mb-3">
       <div class="col">
@@ -55,11 +54,12 @@
         type="email"
         class="form-control"
         required
-        id="exampleFormControlInput1"
+        id="email"
         name="email"
         placeholder="อีเมล"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         />
-      <div class="invalid-feedback">ต้องใส่อีเมล</div>
+      <div class="invalid-feedback">ใส่อีเมลให้ถูกต้อง</div>
     </div>
     <div class="mb-3">
       <label for="exampleFormControlTextarea1" class="form-label">รายละเอียด</label>
@@ -72,11 +72,16 @@
       <div class="invalid-feedback">ระบุข้อความที่ต้องการติดต่อ</div>
     </div>
     <div class="flex text-start">
-      <button type="submit" id="submit" class="btn btn-outline-info">
-        ส่งข้อความ
-      </button>
+      {{capcha}}
+      <div class="w-100 text-center mt-3">
+        <button type="submit" id="submit" class="btn btn-outline-info">
+          ส่งข้อความ
+        </button>
+      </div>
+
     </div>
   </form>
 </div>
+
 
 {% endblock content %}

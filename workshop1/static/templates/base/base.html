@@ -125,17 +125,6 @@
       
     }
 
-    // function searchProd(e) {
-    //   // console.log(e.target.value);
-    //   let txt = e.target.value;
-    //   let lst = document.getElementsByClassName('cardProd');
-    //   for (let i = 0; i < lst.length; i++) {
-    //     console.log(lst[i].getElementById('price'));
-
-        
-    //   }
-    // }
-
     $(document).ready(function () {
       // let lsn = $("div.cardProd")
       // lsn.each(function (i) {
@@ -152,6 +141,7 @@
       $('#cat_submit').click(function(){
         $('#form_select_cat').submit()
       })
+
       
     });
 
@@ -165,7 +155,11 @@
       Array.prototype.slice.call(forms)
         .forEach(function (form) {
           form.addEventListener('submit', function (event) {
+            
+            console.log('form ==>>> ', !form.checkValidity());
             if (!form.checkValidity()) {
+              
+              // console.log('event ==>>> ', event.target['email'].checkValidity());
               event.preventDefault()
               event.stopPropagation()
             }

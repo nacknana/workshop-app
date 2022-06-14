@@ -70,6 +70,7 @@
     </div>
 
     {% endfor %}
+
     {% else %}
     <a class="text-black-50 text-lg-center">ไม่พบสินค้า</a>
     {% endif %}
@@ -97,8 +98,8 @@
         var value = $(this).val().toLowerCase();
         $("div.cardProd").filter(function(i) {
           $(this).toggle($("div.cardProd #name")[i].value.toLowerCase().indexOf(value)>-1);
-          // console.log();
         });
+        console.log($("div.cardProd"));
       });
 
      
@@ -121,7 +122,7 @@
         $('#sort').text('ราคามากไปน้อย')
         return (contentA > contentB) ? -1 : (contentA < contentB) ? 1 : 0;
         });
-        console.log(result);
+        // console.log(result);
         $('#mylist').html(result);
       })
 

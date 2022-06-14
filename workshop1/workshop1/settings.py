@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'captcha',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -92,20 +93,20 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# AUTH_PASSWORD_VALIDATORS = [
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#     },
+#     {
+#         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#     },
+# ]
 
 
 # Internationalization
@@ -145,15 +146,5 @@ MEDIA_URL = '/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-RECAPTCHA_SECRET_TOKEN = "6LcWfTgbAAAAAOYgcE1AfLtR1SsiISbjdurTEzlN"
-
-RECAPTCHA_SITE_TOKEN = "6LcWfTgbAAAAANiVVC8Av_wGDq-ro2I3yIA5Qnpa"
-
-RECAPTCHA_PUBLIC_KEY = '6LccGx4gAAAAADALXzP358Rw_K--cJKmDBRJdYtZ'
-RECAPTCHA_PRIVATE_KEY = '6LccGx4gAAAAAGqq1k8MuGWvFqH-D5BbkdnPPAfl'
-
-RECAPTCHA_DEFAULT_ACTION = 'generic'
-RECAPTCHA_SCORE_THRESHOLD = 0.5
-RECAPTCHA_LANGUAGE = 'en'
+RECAPTCHA_PUBLIC_KEY = '6LdEe2YgAAAAAPYP76m7maFDQAfdWOOgiU2IBd8e'
+RECAPTCHA_PRIVATE_KEY = '6LdEe2YgAAAAANDbMST2JlMIq0wsW9WxiVO3eE1Z'

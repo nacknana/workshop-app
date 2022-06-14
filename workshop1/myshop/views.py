@@ -1,9 +1,13 @@
-
-
 from django.shortcuts import render, redirect
-
-from .models import Category, Contact, ImagesProduct, Product
+from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.conf import settings
+
+
+from .models import Category, Contact, Product
+from .form import FormWithCaptcha
+
+import requests
 
 from django.contrib.auth import login, logout
 # Create your views here.
@@ -53,19 +57,55 @@ def product_detail(request, pk):
 
 def contact(request):
     sta = False
+    capcha = FormWithCaptcha()
     if request.POST:
-        data = request.POST
-        contact = Contact.objects.create(
-            firstname=data['fname'],
-            lastname=data['fname'],
-            e_mail=data['email'],
-            message=data['text'],
-        )
-        contact.save()
-        sta = True
-
+        # print('Post ===>>> ', request.POST.get("g-recaptcha-response"))
+        recap = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify', {
+                'secret': settings.RECAPTCHA_PRIVATE_KEY,
+                'response': request.POST.get("g-recaptcha-response")
+            })
+        print(recap.json())
+        if recap.json()['success']:
+            data = request.POST
+            contact = Contact.objects.create(
+                firstname=data['fname'],
+                lastname=data['fname'],
+                e_mail=data['email'],
+                message=data['text'],
+            )
+            contact.save()
+            sta = True
+        else:
+            messages.error(request, 'Save Failed')
     # print(get_recaptcha)
-    return render(request, 'contact.html', {'showBread': True, 'sta': sta})
+    return render(request, 'contact.html', {'showBread': True, 'sta': sta, 'capcha': capcha})
+
+# def contact_new(request):
+#     category = Category.objects.filter(published=True)
+#     form = ContactForm()
+#     if  request.method == 'POST':
+#         respon = request.POST.get('g-recaptcha-response')
+#         googlerecap = {
+#             'secret':'6LfQWzQbAAAAAEJLOBBfDZ9YOBy_Z4NGF9Rt6oHJ',
+#             'response':respon
+#         }
+#         recap = requests.post('https://www.google.com/recaptcha/api/siteverify', googlerecap)
+#         if recap.json()['success']:
+#             form = ContactForm(request.POST, request.FILES)
+#             if form.is_valid():
+#                 contact = form.save(commit=False)
+#                 contact.published = True
+#                 contact.save()
+#                 form.save_m2m()
+#                 messages.success(request, 'Save success')
+#                 return HttpResponseRedirect(reverse('contact', kwargs={} ))
+#         else:
+#             messages.error(request, 'Save Failed')
+#     return render(request, 'page/contact.html',{
+#         'form': form,
+#         'category':category
+#     })
 
 
 def login_or_regis_view(req):
